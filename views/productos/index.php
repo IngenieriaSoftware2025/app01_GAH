@@ -1,6 +1,5 @@
 <div class="container py-4">
-    
-    <!-- Título simple -->
+
     <div class="row mb-4">
         <div class="col-12 text-center">
             <h2 class="fw-bold text-dark">Mi Lista de Compras</h2>
@@ -8,7 +7,6 @@
         </div>
     </div>
 
-    <!-- Formulario simple -->
     <div class="row mb-4 justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow-sm">
@@ -82,7 +80,6 @@
         </div>
     </div>
 
-    <!-- Tabla de productos pendientes -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card shadow-sm">

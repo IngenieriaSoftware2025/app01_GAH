@@ -4,13 +4,10 @@ import Swal from "sweetalert2";
 import { validarFormulario } from '../funciones';
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
-import { data, event } from "jquery";
-
 
 //constantes
 const FormProductos = document.getElementById('FormProductos');
 const BtnGuardar = document.getElementById('BtnGuardar');
-const BtnModificar = document.getElementById('BtnModificar');
 const BtnLimpiar = document.getElementById('BtnLimpiar');
 const InputNombreProducto = document.getElementById('producto_nombre');
 const InputCantidad = document.getElementById('producto_cantidad');
@@ -18,7 +15,6 @@ const SelectCategoria = document.getElementById('producto_categoria');
 const SelectPrioridad = document.getElementById('producto_prioridad');
 
 
-//funcion para validar nombre
 const ValidarNombreProducto = () =>{ 
     const nombreProducto = InputNombreProducto.value;
 
@@ -43,7 +39,7 @@ const ValidarNombreProducto = () =>{
     }
 }
 
-//funcion para validar cantidad
+
 const ValidarCantidad = () => {
     const cantidad = InputCantidad.value;
 
@@ -68,7 +64,6 @@ const ValidarCantidad = () => {
     }
 }
 
-//funcion para cargar categorías
 const CargarCategorias = async () => {
     try {
         const respuesta = await fetch('/app01_GAH/productos/categoriasAPI');
@@ -89,10 +84,9 @@ const CargarCategorias = async () => {
     }
 }
 
-//funcion para cargar prioridades
+
 const CargarPrioridades = async () => {
     try {
-        // Como no tienes API de prioridades, las hardcodeamos
         const prioridades = [
             { prioridad_id: 1, prioridad_nombre: 'Alta' },
             { prioridad_id: 2, prioridad_nombre: 'Media' },
@@ -111,7 +105,7 @@ const CargarPrioridades = async () => {
     }
 }
 
-//funcion GuardarProducto
+
 const GuardarProducto = async (event) => {
     event.preventDefault();
     BtnGuardar.disabled = true;
@@ -195,7 +189,6 @@ const BuscarProductos = async () => {
     }
 }
 
-// funcion buscar productos comprados
 const BuscarProductosComprados = async () => {
     const url = '/app01_GAH/productos/buscarAPI';
     const config = {
@@ -231,8 +224,7 @@ const limpiarTodo = () => {
     FormProductos.reset();
     BtnGuardar.classList.remove('d-none');
     BtnModificar.classList.add('d-none');
-    
-    // Remover clases de validación
+
     InputNombreProducto.classList.remove('is-valid', 'is-invalid');
     InputCantidad.classList.remove('is-valid', 'is-invalid');
     SelectCategoria.classList.remove('is-valid', 'is-invalid');
@@ -255,8 +247,8 @@ const datatable = new DataTable('#TableProductos', {
     language: lenguaje,
     data: [],
     order: [
-        [3, 'asc'], // Categoría primero
-        [4, 'asc']  // Prioridad segundo
+        [3, 'asc'], 
+        [4, 'asc']  
     ],
     columns: [
         {
@@ -317,7 +309,6 @@ const datatable = new DataTable('#TableProductos', {
 
 let datatableComprados;
 
-// Función para marcar como comprado - CORREGIDA
 const MarcarComprado = async (id) => {
     try {
         const formData = new FormData();
@@ -335,15 +326,14 @@ const MarcarComprado = async (id) => {
             await Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "¡Producto comprado!",
+                title: "Producto comprado",
                 text: mensaje,
                 timer: 2000,
                 showConfirmButton: false,
             });
             
-            // ESTO ES CLAVE: Recargar ambas tablas
-            await BuscarProductos();        // Remueve de "Por Comprar"
-            await BuscarProductosComprados(); // Agrega a "Ya Comprados"
+            await BuscarProductos();        
+            await BuscarProductosComprados(); 
         } else {
             await Swal.fire({
                 position: "center",
@@ -365,7 +355,7 @@ const MarcarComprado = async (id) => {
     }
 }
 
-// Función para eliminar producto - CORREGIDA
+// Función para eliminar producto 
 const EliminarProducto = async (id) => {
     const result = await Swal.fire({
         title: '¿Estás seguro?',
@@ -380,14 +370,12 @@ const EliminarProducto = async (id) => {
 
     if (result.isConfirmed) {
         try {
-            const formData = new FormData();
-            formData.append('producto_id', id);
-
             const respuesta = await fetch(`/app01_GAH/productos/EliminarAPI?id=${id}`, {
             method: 'GET'
             });
 
             const datos = await respuesta.json();
+            console.log(datos)
             const { codigo, mensaje } = datos;
             
             if (codigo === 1) {
@@ -400,7 +388,6 @@ const EliminarProducto = async (id) => {
                     showConfirmButton: false,
                 });
                 
-                // Recargar ambas tablas
                 await BuscarProductos();
                 await BuscarProductosComprados();
             } else {
@@ -425,7 +412,6 @@ const EliminarProducto = async (id) => {
     }
 }
 
-// Función para modificar producto
 const ModificarProducto = async (id) => {
     try {
         // Buscar el producto para prellenar el formulario
@@ -463,7 +449,6 @@ const ModificarProducto = async (id) => {
     }
 }
 
-// Función para modificar producto (submit)
 const ModificarProductoSubmit = async (event) => {
     event.preventDefault();
     BtnModificar.disabled = true;
@@ -519,7 +504,6 @@ const ModificarProductoSubmit = async (event) => {
     BtnModificar.disabled = false;
 }
 
-// Inicializar tabla de productos comprados
 const inicializarTablaComprados = () => {
     datatableComprados = new DataTable('#TableProductosComprados', {
         dom: `
@@ -568,19 +552,17 @@ const inicializarTablaComprados = () => {
     });
 }
 
-// Hacer funciones disponibles globalmente
+
 window.MarcarComprado = MarcarComprado;
 window.EliminarProducto = EliminarProducto;
 window.ModificarProducto = ModificarProducto;
 
-// Event Listeners
 FormProductos.addEventListener('submit', GuardarProducto);
 BtnLimpiar.addEventListener('click', limpiarTodo);
 BtnModificar.addEventListener('click', ModificarProductoSubmit);
 InputNombreProducto.addEventListener('change', ValidarNombreProducto);
 InputCantidad.addEventListener('change', ValidarCantidad);
 
-// Inicializar aplicación
 document.addEventListener('DOMContentLoaded', async () => {
     await CargarCategorias();
     await CargarPrioridades();
