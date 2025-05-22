@@ -28,8 +28,8 @@ class Productos extends ActiveRecord{
         $this->producto_id = $args['producto_id'] ?? null;
         $this->producto_nombre = $args['producto_nombre'] ?? '';
         $this->producto_cantidad = $args['producto_cantidad'] ?? 0;
-        $this->producto_categoria = $args['producto_categoria'] ?? 'A';
-        $this->producto_prioridad = $args['producto_prioridad'] ?? 'M'; 
+        $this->producto_categoria = $args['producto_categoria'] ?? 1;
+        $this->producto_prioridad = $args['producto_prioridad'] ?? 2; 
         $this->producto_situacion = $args['producto_situacion'] ?? 1;
     }
 }

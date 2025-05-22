@@ -7,7 +7,7 @@
                         <h5 class="fw-bold text-warning mb-2">Administra tu lista de compras semanal de manera eficiente.</h5>
                         <h3 class="fw-bold text-white mb-0">Ir a mi Lista de Compras</h3>
                     </div>
-                    <form id="FormUsuarios" class="p-4 bg-dark bg-opacity-75 rounded-3 shadow-sm border border-secondary">
+                    <form id="FormProductos" class="p-4 bg-dark bg-opacity-75 rounded-3 shadow-sm border border-secondary">
                         <input type="hidden" id="producto_id" name="producto_id">
                         <div class="row g-4 mb-3">
 
@@ -25,12 +25,12 @@
 
                         <div class="row g-4 mb-3"> 
                         <div class="col-md-6">
-                            <label for="producto_categoria" class="form-label text-white"></label>
+                            <label for="producto_categoria" class="form-label text-white">Categoría</label>
                             <select name="producto_categoria" class="form-select form-select-lg bg-dark bg-opacity-50 text-white border-secondary" id="producto_categoria">
                                 <option value="">-- Seleccione una categoria --</option>
-                                <option value="A">Alimento</option>
-                                <option value="H">Higene</option>
-                                <option value="C">Hogar</option>
+                                <option value="1">Alimento</option>
+                                <option value="2">Higiene</option>
+                                <option value="3">Hogar</option>
                             </select>
                         </div>
 
@@ -38,9 +38,9 @@
                             <label for="producto_prioridad" class="form-label text-white"></label>
                             <select name="producto_prioridad" class="form-select form-select-lg bg-dark bg-opacity-50 text-white border-secondary" id="producto_prioridad">
                                 <option value="">-- Prioridad del producto --</option>
-                                <option value="A">Alta</option>
-                                <option value="M">Mediana</option>
-                                <option value="B">Baja</option>
+                                <option value="1">Alta</option>
+                                <option value="2">Mediana</option>
+                                <option value="3">Baja</option>
                             </select>
                         </div>
                         </div>

@@ -7,13 +7,16 @@ use Model\ActiveRecord;
 use Model\Productos;
 use MVC\Router;
 
-class ProductoController extends ActiveRecord{
+class ProductoController extends ActiveRecord
+{
 
-    public function renderizarPagina(Router $router){
+    public function renderizarPagina(Router $router)
+    {
         $router->render('productos/index', []);
     }
 
-    public static function guardarAPI(){
+    public static function guardarAPI()
+    {
         getHeadersApi();
 
         //nombre del producto
@@ -41,11 +44,9 @@ class ProductoController extends ActiveRecord{
         }
 
         //validar la categoria
-        $_POST['producto_categoria'] = htmlspecialchars($_POST['producto_categoria']);
+        $_POST['producto_categoria'] = filter_var($_POST['producto_categoria'], FILTER_VALIDATE_INT);
 
-        $categoria = $_POST['producto_categoria'];
-
-        if (!in_array($categoria, ['A', 'H', 'C'])) {
+        if (!in_array($_POST['producto_categoria'], [1, 2, 3])) {
             http_response_code(400);
             echo json_encode([
                 'codigo' => 0,
@@ -55,23 +56,21 @@ class ProductoController extends ActiveRecord{
         }
 
         //validammos prioridad
-        $_POST['producto_prioridad'] = htmlspecialchars($_POST['producto_prioridad']);
+        $_POST['producto_prioridad'] = filter_var($_POST['producto_prioridad'], FILTER_VALIDATE_INT);
 
-        $prioridad = $_POST['producto_prioridad'];
-
-        if (!in_array($prioridad, ['A', 'M', 'B'])) {
+        if (!in_array($_POST['producto_prioridad'], [1, 2, 3])) {
             http_response_code(400);
             echo json_encode([
                 'codigo' => 0,
-                'mensaje' => 'Las categorias solo pueden ser Alta, Mediana o Baja'
+                'mensaje' => 'Las prioridades solo pueden ser Alta, Mediana o Baja'
             ]);
             return;
         }
 
         //producto que no ingrese 2 veces
-        $sql = "SELECT * FROM productos WHERE producto_nombre = ? AND producto_categoria = ? AND producto_situcion = 1";
+        $sql = "SELECT * FROM productos WHERE producto_nombre = ? AND producto_categoria = ? AND producto_situacion = 1";
         $resultado = self::$db->prepare($sql);
-        $resultado->execute($_POST['producto_nombre'], $_POST['producto_categoria']);
+        $resultado->execute([$_POST['producto_nombre'], $_POST['producto_categoria']]);
 
         if ($resultado->rowCount() > 0) {
             http_response_code(400);
@@ -90,8 +89,15 @@ class ProductoController extends ActiveRecord{
                 'producto_prioridad' => $_POST['producto_prioridad'],
                 'producto_situacion' => 0
             ]);
-        } catch (Exception $e) {
+
             $crear = $data->crear();
+
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'El producto ha sido registrado correctamente'
+            ]);
+        } catch (Exception $e) {
             http_response_code(400);
             echo json_encode([
                 'codigo' => 0,
@@ -101,29 +107,34 @@ class ProductoController extends ActiveRecord{
         }
     }
 
-    public static function buscarAPI(){
+    public static function buscarAPI()
+    {
         try {
             $sql = "SELECT p.producto_id, p.producto_nombre, p.producto_cantidad, 
-                          p.producto_categoria, c.categoria_nombre, 
-                          p.producto_prioridad, pr.prioridad_nombre,
-                          p.producto_situacion, s.situacion_nombre
-                   FROM productos p
-                   JOIN categorias c ON p.producto_categoria = c.categoria_id
-                   JOIN prioridades pr ON p.producto_prioridad = pr.prioridad_id
-                   JOIN situaciones s ON p.producto_situacion = s.situacion_id
-                   ORDER BY p.producto_categoria, 
-                            CASE p.producto_prioridad
-                              WHEN 'A' THEN 1
-                              WHEN 'M' THEN 2
-                              WHEN 'B' THEN 3
-                            END";
+              p.producto_categoria, c.categoria_nombre, 
+              p.producto_prioridad, pr.prioridad_nombre,
+              p.producto_situacion, 
+              CASE p.producto_situacion 
+                WHEN 0 THEN 'Pendiente'
+                WHEN 1 THEN 'Comprado'
+              END as situacion_nombre
+       FROM productos p
+       JOIN categorias c ON p.producto_categoria = c.categoria_id
+       JOIN prioridades pr ON p.producto_prioridad = pr.prioridad_id
+       ORDER BY p.producto_categoria, p.producto_prioridad";
 
             $data = self::fetchArray($sql);
 
             http_response_code(200);
             echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Error al obtener los producto',
+                'codigo' => 1,
+                'mensaje' => 'Productos obtenidos correctamente',
+                'data' => $data
+            ]);
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'Productos obtenidos correctamente',
                 'data' => $data
             ]);
         } catch (Exception $e) {
@@ -136,7 +147,8 @@ class ProductoController extends ActiveRecord{
         }
     }
 
-    public static function modificarAPI(){
+    public static function modificarAPI()
+    {
         getHeadersApi();
 
         $id = $_POST['producto_id'];
@@ -174,11 +186,9 @@ class ProductoController extends ActiveRecord{
         }
 
         //validar la categoria
-        $_POST['producto_categoria'] = htmlspecialchars($_POST['producto_categoria']);
+        $_POST['producto_categoria'] = filter_var($_POST['producto_categoria'] . FILTER_VALIDATE_INT);
 
-        $categoria = $_POST['producto_categoria'];
-
-        if (!in_array($categoria, ['A', 'H', 'C'])) {
+        if (!in_array($_POST['producto_categoria'], [1, 2, 3])) {
             http_response_code(400);
             echo json_encode([
                 'codigo' => 0,
@@ -188,11 +198,9 @@ class ProductoController extends ActiveRecord{
         }
 
         //validammos prioridad
-        $_POST['producto_prioridad'] = htmlspecialchars($_POST['producto_prioridad']);
+        $_POST['producto_prioridad'] = filter_var($_POST['producto_prioridad']);
 
-        $prioridad = $_POST['producto_prioridad'];
-
-        if (!in_array($prioridad, ['A', 'M', 'B'])) {
+        if (!in_array($_POST['producto_prioridad'], [1, 2, 3])) {
             http_response_code(400);
             echo json_encode([
                 'codigo' => 0,
@@ -250,7 +258,8 @@ class ProductoController extends ActiveRecord{
         }
     }
 
-    public static function marcarCompradoAPI(){
+    public static function marcarCompradoAPI()
+    {
         getHeadersApi();
 
         $id = $_POST['producto_id'] ?? null;
@@ -277,7 +286,7 @@ class ProductoController extends ActiveRecord{
             }
 
             $producto->sincronizar([
-                'producto_situacion' => 1 // 1 = Comprado
+                'producto_situacion' => 0
             ]);
 
             $producto->actualizar();
@@ -297,8 +306,8 @@ class ProductoController extends ActiveRecord{
         }
     }
 
-
-    public static function eliminarAPI(){
+    public static function eliminarAPI()
+    {
         getHeadersApi();
 
         $id = $_POST['producto_id'] ?? null;
@@ -324,7 +333,6 @@ class ProductoController extends ActiveRecord{
                 return;
             }
 
-            // Eliminar físicamente el producto
             $producto->eliminar();
 
             http_response_code(200);
@@ -342,7 +350,8 @@ class ProductoController extends ActiveRecord{
         }
     }
 
-    public static function buscarPorSituacionAPI(){
+    public static function buscarPorSituacionAPI()
+    {
         $situacion = $_GET['situacion'] ?? null;
 
         if ($situacion === null) {
@@ -356,20 +365,17 @@ class ProductoController extends ActiveRecord{
 
         try {
             $sql = "SELECT p.producto_id, p.producto_nombre, p.producto_cantidad, 
-                          p.producto_categoria, c.categoria_nombre, 
-                          p.producto_prioridad, pr.prioridad_nombre,
-                          p.producto_situacion, s.situacion_nombre
-                   FROM productos p
-                   JOIN categorias c ON p.producto_categoria = c.categoria_id
-                   JOIN prioridades pr ON p.producto_prioridad = pr.prioridad_id
-                   JOIN situaciones s ON p.producto_situacion = s.situacion_id
-                   WHERE p.producto_situacion = ?
-                   ORDER BY p.producto_categoria, 
-                            CASE p.producto_prioridad
-                              WHEN 'A' THEN 1
-                              WHEN 'M' THEN 2
-                              WHEN 'B' THEN 3
-                            END";
+              p.producto_categoria, c.categoria_nombre, 
+              p.producto_prioridad, pr.prioridad_nombre,
+              p.producto_situacion, 
+              CASE p.producto_situacion 
+                WHEN 0 THEN 'Pendiente'
+                WHEN 1 THEN 'Comprado'
+              END as situacion_nombre
+       FROM productos p
+       JOIN categorias c ON p.producto_categoria = c.categoria_id
+       JOIN prioridades pr ON p.producto_prioridad = pr.prioridad_id
+       ORDER BY p.producto_categoria, p.producto_prioridad";
 
             $stmt = self::$db->prepare($sql);
             $stmt->execute([$situacion]);
@@ -390,5 +396,4 @@ class ProductoController extends ActiveRecord{
             ]);
         }
     }
-    
 }

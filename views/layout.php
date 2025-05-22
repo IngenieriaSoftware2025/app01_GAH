@@ -19,7 +19,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-lg sticky-top" style="background: linear-gradient(45deg, #212529, #495057);">
         <div class="container-fluid px-4">
-            <a class="navbar-brand fw-bold text-warning d-flex align-items-center" href="/app01_gaha">
+            <a class="navbar-brand fw-bold text-warning d-flex align-items-center" href="/app01_GAH">
                 <i class="bi bi-house-fill me-2 fs-4"></i>
                 <span class="text-uppercase">INICIO</span>
             </a>
@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item mx-1">
-                        <a class="nav-link active rounded-pill px-3 py-2 fw-bold bg-success bg-opacity-25" aria-current="page" href="/app01_gaha/productos">
+                        <a class="nav-link active rounded-pill px-3 py-2 fw-bold bg-success bg-opacity-25" aria-current="page" href="/app01_GAH/productos">
                             <i class="bi bi-people-fill me-1"></i> PRODUCTOS
                         </a>
                     </li>
@@ -52,7 +52,7 @@
                             <li>
                                 <h6 class="dropdown-header">GESTIÓN DE SISTEMA</h6>
                             </li>
-                            <li><a class="dropdown-item text-white-50 fw-bold" href="/app01_gaha/usuarios"><i class="bi bi-person-badge me-2"></i>Usuarios</a></li>
+                            <li><a class="dropdown-item text-white-50 fw-bold" href="/app01_GAH/usuarios"><i class="bi bi-person-badge me-2"></i>Usuarios</a></li>
                             <li>
                                 <hr class="dropdown-divider bg-light">
                             </li>
