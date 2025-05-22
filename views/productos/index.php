@@ -1,59 +1,79 @@
-<div class="container py-5">
-    <div class="row mb-5 justify-content-center">
+<div class="container py-4">
+    
+    <!-- Título simple -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h2 class="fw-bold text-dark">Mi Lista de Compras</h2>
+            <p class="text-muted">Organiza tus compras semanales</p>
+        </div>
+    </div>
+
+    <!-- Formulario simple -->
+    <div class="row mb-4 justify-content-center">
         <div class="col-lg-8">
-            <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-body" style="background: linear-gradient(45deg, #212529, #495057);">
-                    <div class="mb-4 text-center">
-                        <h5 class="fw-bold text-warning mb-2">Administra tu lista de compras semanal de manera eficiente.</h5>
-                        <h3 class="fw-bold text-white mb-0">Ir a mi Lista de Compras</h3>
-                    </div>
-                    <form id="FormProductos" class="p-4 bg-dark bg-opacity-75 rounded-3 shadow-sm border border-secondary">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Agregar Producto</h5>
+                </div>
+                
+                <div class="card-body">
+                    <form id="FormProductos">
                         <input type="hidden" id="producto_id" name="producto_id">
-                        <div class="row g-4 mb-3">
-
+                        
+                        <div class="row g-3 mb-3">
                             <div class="col-md-6">
-                                <label for="producto_nombre" class="form-label text-white">Nombre del producto</label>
-                                <input type="text" class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-secondary" id="producto_nombre" name="producto_nombre" placeholder="producto">
+                                <label for="producto_nombre" class="form-label">Nombre del producto</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       id="producto_nombre" 
+                                       name="producto_nombre" 
+                                       placeholder="Ejemplo: Leche, Pan, etc.">
                             </div>
 
                             <div class="col-md-6">
-                                <label for="producto_cantidad" class="form-label text-white">Cantidad a comprar</label>
-                                <input type="number" class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-secondary" id="producto_cantidad" name="producto_cantidad" placeholder="cantidad">
+                                <label for="producto_cantidad" class="form-label">Cantidad</label>
+                                <input type="number" 
+                                       class="form-control" 
+                                       id="producto_cantidad" 
+                                       name="producto_cantidad" 
+                                       placeholder="1, 2, 3..."
+                                       min="1">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label for="producto_categoria" class="form-label">Categoría</label>
+                                <select name="producto_categoria" class="form-select" id="producto_categoria">
+                                    <option value="">Seleccionar categoría</option>
+                                    <option value="1">Alimentos</option>
+                                    <option value="2">Higiene</option>
+                                    <option value="3">Hogar</option>
+                                </select>
                             </div>
 
+                            <div class="col-md-6">
+                                <label for="producto_prioridad" class="form-label">Prioridad</label>
+                                <select name="producto_prioridad" class="form-select" id="producto_prioridad">
+                                    <option value="">Seleccionar prioridad</option>
+                                    <option value="1">Alta</option>
+                                    <option value="2">Media</option>
+                                    <option value="3">Baja</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="row g-4 mb-3"> 
-                        <div class="col-md-6">
-                            <label for="producto_categoria" class="form-label text-white">Categoría</label>
-                            <select name="producto_categoria" class="form-select form-select-lg bg-dark bg-opacity-50 text-white border-secondary" id="producto_categoria">
-                                <option value="">-- Seleccione una categoria --</option>
-                                <option value="1">Alimento</option>
-                                <option value="2">Higiene</option>
-                                <option value="3">Hogar</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="producto_prioridad" class="form-label text-white"></label>
-                            <select name="producto_prioridad" class="form-select form-select-lg bg-dark bg-opacity-50 text-white border-secondary" id="producto_prioridad">
-                                <option value="">-- Prioridad del producto --</option>
-                                <option value="1">Alta</option>
-                                <option value="2">Mediana</option>
-                                <option value="3">Baja</option>
-                            </select>
-                        </div>
-                        </div>
-
-                        <div class="d-flex justify-content-center gap-3">
-                            <button class="btn btn-success btn-lg px-4 shadow" type="submit" id="BtnGuardar">
-                                <i class="bi bi-save me-2"></i>Guardar
+                        <div class="text-center">
+                            <button class="btn btn-success me-2" type="submit" id="BtnGuardar">
+                                Agregar
                             </button>
-                            <button class="btn btn-warning btn-lg px-4 shadow d-none" type="button" id="BtnModificar">
-                                <i class="bi bi-pencil-square me-2"></i>Modificar
+                            
+                            <button class="btn btn-warning me-2 d-none" type="button" id="BtnModificar">
+                                Actualizar
                             </button>
-                            <button class="btn btn-secondary btn-lg px-4 shadow" type="reset" id="BtnLimpiar">
-                                <i class="bi bi-eraser me-2"></i>Limpiar
+                            
+                            <button class="btn btn-secondary" type="reset" id="BtnLimpiar">
+                                Limpiar
                             </button>
                         </div>
                     </form>
@@ -62,13 +82,37 @@
         </div>
     </div>
 
-    <div class="row justify-content-center mt-5">
-        <div class="col-lg-11">
-            <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-body" style="background: linear-gradient(45deg, #212529, #495057);">
-                    <h3 class="text-center text-white mb-4">Listado de Productos</h3>
+    <!-- Tabla de productos pendientes -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Por Comprar</h5>
+                </div>
+                
+                <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-dark table-striped table-hover table-bordered align-middle rounded-3 overflow-hidden" id="TableProductos">
+                        <table class="table table-striped" id="TableProductos">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de productos comprados -->
+    <div class="row" id="SeccionComprados" style="display: none;">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Ya Comprados</h5>
+                </div>
+                
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="TableProductosComprados">
+                            
                         </table>
                     </div>
                 </div>
@@ -77,21 +121,6 @@
     </div>
 </div>
 
-<!-- Bootstrap Icons CD los botones -->
+<!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script src="<?= asset('build/js/productos/index.js') ?>"></script>
-
-
-<style>
-    .form-control::placeholder,
-    .form-select::placeholder {
-        color: white !important;
-        opacity: 0.7 !important;
-    }
-
-    /* Estilo para las opciones del select */
-    .bg-dark option {
-        background-color: #343a40;
-        color: white;
-    }
-</style>
