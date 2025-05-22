@@ -19,13 +19,13 @@ const SelectPrioridad = document.getElementById('producto_prioridad');
 
 
 //funcion para validar nombre
-const ValidarNombreProducto = () =>{ //obtiene el valor actual del campo nombre
+const ValidarNombreProducto = () =>{ 
     const nombreProducto = InputNombreProducto.value;
 
-    if (nombreProducto.length < 1) { //si el campo esta vacio, no da error ni exito
+    if (nombreProducto.length < 1) {
         InputNombreProducto.classList.remove('is-valid','is-invalid');
     }else{
-        if (nombreProducto.trim() === '') {//elimina los espacios, si queda uno da error
+        if (nombreProducto.trim() === '') {
             Swal.fire({
                 position: "center",
                 icon: "error",
@@ -86,7 +86,7 @@ const GuardarProducto = async (event) => {
     }
 
     const body = new FormData(FormProductos);
-    const url = '/app01_GAH/productos/guardarAPI';
+    const url = 'http://localhost:9002/app01_GAH/productos/guardarAPI';
     const config = {
         method: 'POST',
         body

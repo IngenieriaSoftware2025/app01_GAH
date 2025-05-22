@@ -52,7 +52,7 @@
                             <li>
                                 <h6 class="dropdown-header">GESTIÓN DE SISTEMA</h6>
                             </li>
-                            <li><a class="dropdown-item text-white-50 fw-bold" href="/app01_GAH/usuarios"><i class="bi bi-person-badge me-2"></i>Usuarios</a></li>
+                            <li><a class="dropdown-item text-white-50 fw-bold" href="/app01_GAH/productos"><i class="bi bi-person-badge me-2"></i>Productos</a></li>
                             <li>
                                 <hr class="dropdown-divider bg-light">
                             </li>

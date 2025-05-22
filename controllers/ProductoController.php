@@ -115,8 +115,8 @@ class ProductoController extends ActiveRecord
               p.producto_prioridad, pr.prioridad_nombre,
               p.producto_situacion, 
               CASE p.producto_situacion 
-                WHEN 0 THEN 'Pendiente'
-                WHEN 1 THEN 'Comprado'
+                WHEN 0 THEN 'Comprado'
+                WHEN 1 THEN 'Pendiente'
               END as situacion_nombre
        FROM productos p
        JOIN categorias c ON p.producto_categoria = c.categoria_id
@@ -125,12 +125,6 @@ class ProductoController extends ActiveRecord
 
             $data = self::fetchArray($sql);
 
-            http_response_code(200);
-            echo json_encode([
-                'codigo' => 1,
-                'mensaje' => 'Productos obtenidos correctamente',
-                'data' => $data
-            ]);
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
@@ -186,7 +180,7 @@ class ProductoController extends ActiveRecord
         }
 
         //validar la categoria
-        $_POST['producto_categoria'] = filter_var($_POST['producto_categoria'] . FILTER_VALIDATE_INT);
+        $_POST['producto_categoria'] = filter_var($_POST['producto_categoria'], FILTER_VALIDATE_INT);
 
         if (!in_array($_POST['producto_categoria'], [1, 2, 3])) {
             http_response_code(400);
@@ -198,7 +192,7 @@ class ProductoController extends ActiveRecord
         }
 
         //validammos prioridad
-        $_POST['producto_prioridad'] = filter_var($_POST['producto_prioridad']);
+        $_POST['producto_prioridad'] = filter_var($_POST['producto_prioridad'], FILTER_VALIDATE_INT);
 
         if (!in_array($_POST['producto_prioridad'], [1, 2, 3])) {
             http_response_code(400);
@@ -286,7 +280,7 @@ class ProductoController extends ActiveRecord
             }
 
             $producto->sincronizar([
-                'producto_situacion' => 0
+                'producto_situacion' => 1
             ]);
 
             $producto->actualizar();
