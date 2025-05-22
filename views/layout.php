@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="build/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="shortcut icon" href="<?= asset('images/cit.png') ?>" type="image/x-icon">
     <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
     <title>Clase no.1</title>
@@ -33,36 +34,6 @@
                         <a class="nav-link active rounded-pill px-3 py-2 fw-bold bg-success bg-opacity-25" aria-current="page" href="/app01_GAH/productos">
                             <i class="bi bi-people-fill me-1"></i> PRODUCTOS
                         </a>
-                    </li>
-                    <li class="nav-item mx-1">
-                        <a class="nav-link rounded-pill px-3 py-2 text-info hover-zoom" href="#">
-                            <i class="bi bi-gear-fill me-1"></i> FEATURES
-                        </a>
-                    </li>
-                    <li class="nav-item mx-1">
-                        <a class="nav-link rounded-pill px-3 py-2 text-warning" href="#">
-                            <i class="bi bi-cash-coin me-1"></i> PRICING
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown mx-1">
-                        <a class="nav-link dropdown-toggle rounded-pill px-3 py-2 text-light bg-primary bg-opacity-50" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-list-nested me-1"></i> MENÚ OPCIONES
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark shadow border-light animated fadeIn" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <h6 class="dropdown-header">GESTIÓN DE SISTEMA</h6>
-                            </li>
-                            <li><a class="dropdown-item text-white-50 fw-bold" href="/app01_GAH/productos"><i class="bi bi-person-badge me-2"></i>Productos</a></li>
-                            <li>
-                                <hr class="dropdown-divider bg-light">
-                            </li>
-                            <li><a class="dropdown-item text-info" href="#"><i class="bi bi-arrow-right-circle me-2"></i>Another action</a></li>
-                            <li><a class="dropdown-item text-warning" href="#"><i class="bi bi-tools me-2"></i>Something else here</a></li>
-                            <li>
-                                <hr class="dropdown-divider bg-light">
-                            </li>
-                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Salir</a></li>
-                        </ul>
                     </li>
                 </ul>
 

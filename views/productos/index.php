@@ -15,17 +15,14 @@
                 </div>
                 
                 <div class="card-body">
-                    <form id="FormProductos">
-                        <input type="hidden" id="producto_id" name="producto_id">
-                        
+                    <form id="FormProductos">                      
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
                                 <label for="producto_nombre" class="form-label">Nombre del producto</label>
                                 <input type="text" 
                                        class="form-control" 
                                        id="producto_nombre" 
-                                       name="producto_nombre" 
-                                       placeholder="Ejemplo: Leche, Pan, etc.">
+                                       name="producto_nombre">
                             </div>
 
                             <div class="col-md-6">
@@ -33,9 +30,7 @@
                                 <input type="number" 
                                        class="form-control" 
                                        id="producto_cantidad" 
-                                       name="producto_cantidad" 
-                                       placeholder="1, 2, 3..."
-                                       min="1">
+                                       name="producto_cantidad">
                             </div>
                         </div>
 
@@ -63,15 +58,11 @@
 
                         <div class="text-center">
                             <button class="btn btn-success me-2" type="submit" id="BtnGuardar">
-                                Agregar
+                                <i class="bi bi-plus-circle"></i>Agregar
                             </button>
-                            
-                            <button class="btn btn-warning me-2 d-none" type="button" id="BtnModificar">
-                                Actualizar
-                            </button>
-                            
+                                                        
                             <button class="btn btn-secondary" type="reset" id="BtnLimpiar">
-                                Limpiar
+                                <i class="bi bi-arrow-clockwise"></i>Limpiar
                             </button>
                         </div>
                     </form>
@@ -103,7 +94,7 @@
         <div class="col-12">
             <div class="card shadow-sm">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Ya Comprados</h5>
+                    <h5 class="mb-0"><i class="bi bi-check-circle"></i>Ya Comprados</h5>
                 </div>
                 
                 <div class="card-body">
