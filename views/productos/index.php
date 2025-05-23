@@ -91,22 +91,24 @@
 
     <!-- Tabla de productos comprados -->
     <div class="row" id="SeccionComprados" style="display: none;">
-        <div class="col-12">
-            <div class="card shadow-sm">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0"><i class="bi bi-check-circle"></i>Ya Comprados</h5>
-                </div>
-                
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="TableProductosComprados">
-                            
-                        </table>
-                    </div>
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-check-circle"></i> Ya Comprados
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped w-100" id="TableProductosComprados">
+                     
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 </div>
 
 <!-- Bootstrap Icons -->

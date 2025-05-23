@@ -398,11 +398,8 @@ const datatable = new DataTable('#TableProductos', {
         }
     ],
     drawCallback: function() {
-        // Remover eventos anteriores para evitar duplicados
         $('.btn-editar').off('click');
         $('.btn-comprado').off('click');
-                
-        // Asignar eventos a los botones
         $('.btn-editar').on('click', function() {
             const id = $(this).data('id');
             EditarProducto(id);
@@ -431,14 +428,14 @@ const datatableComprados = new DataTable('#TableProductosComprados', {
     language: lenguaje,
     data: [],
     order: [
-        [3, 'asc'], // Categoría primero
-        [4, 'asc']  // Prioridad segundo
+        [3, 'asc'], 
+        [4, 'asc']  
     ],
     columns: [
         {
             title: 'No.',
             data: 'producto_id',
-            width: '5%',
+            width: '15%',
             render: (data, type, row, meta) => meta.row + 1
         },
         { title: 'Producto', data: 'producto_nombre', width: '30%' },

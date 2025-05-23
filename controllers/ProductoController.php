@@ -61,11 +61,9 @@ class ProductoController extends ActiveRecord
 
         //producto que no se dupliquen
         $_POST['producto_nombre'] = trim($_POST['producto_nombre']);
-        $nombreNormalizado = mb_strtolower($_POST['producto_nombre'], 'UTF-8');
-
-        $sql = "SELECT * FROM productos WHERE LOWER(producto_nombre) = LOWER(?) AND producto_categoria = ? AND producto_situacion = 1";
+        $sql = "SELECT * FROM productos WHERE LOWER(TRIM(producto_nombre)) = LOWER(TRIM(?)) AND producto_categoria = ? AND producto_situacion = 1";
         $resultado = self::$db->prepare($sql);
-        $resultado->execute([$nombreNormalizado, $_POST['producto_categoria']]);
+        $resultado->execute([$_POST['producto_nombre'], $_POST['producto_categoria']]);
 
         if ($resultado->rowCount() > 0) {
             http_response_code(400);
@@ -75,7 +73,7 @@ class ProductoController extends ActiveRecord
             ]);
             return;
         }
-        
+
         try {
             $data = new Productos([
                 'producto_nombre' => $_POST['producto_nombre'],
@@ -250,5 +248,4 @@ class ProductoController extends ActiveRecord
             ]);
         }
     }
-
 }
